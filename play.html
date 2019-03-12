@@ -50,9 +50,7 @@
     			var id;
     			function plusReady(){
     				var wv=plus.webview.currentWebview();
-    				var id=wv.name;
-
-    				
+    				 id=wv.name;	
     			}
     			if(window.plus){
     				plusReady();
@@ -61,7 +59,8 @@
     				document.addEventListener('plusready', plusReady, false);
     			}
 				function play(str){
-					document.getElementById("audio").innerHTML='<audio autoplay="autoplay"><source type="audio/mp3" src="fonts/'+str+'.wav"></source></audio>';
+					//alert(id);
+					document.getElementById("audio").innerHTML='<audio autoplay="autoplay"><source type="audio/mp3" src="fonts/note'+id+'_'+str+'.mp3"></source></audio>';
 						
 				}
 			</script>

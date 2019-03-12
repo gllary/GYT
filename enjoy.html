@@ -62,7 +62,7 @@
 			var id;
 			function plusReady(){
 				var wv=plus.webview.currentWebview();
-				var id=wv.name;
+				id=wv.name;
 				document.getElementById("etop").src='img/e'+id+'.jpg';
 				var url='http://157.230.161.31:8080/renren-fast/generator/instrudb/info/'+wv.name;
 				mui.get(url,function(data){
@@ -83,6 +83,7 @@
 			}
 			function v_play(str){
 				document.getElementById("vd1").poster='img/ep'+str+'.jpg';
+				document.getElementById("vd1").pause();
 				var url='http://47.100.192.102/video'+str+'.mp4';
 				document.getElementById("vd1").src=url;
 				document.getElementById("vd1").play();
@@ -95,6 +96,7 @@
 					name:id //k-v
 					}
 				})
+				document.getElementById("vd1").pause();
 			}
 		</script>
 	</body>
