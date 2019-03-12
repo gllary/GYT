@@ -1,0 +1,24 @@
+#back {
+	background-color: #FF0000;
+}
+#back h1 {
+	color: #FAFAFA;
+	
+}
+#back a {
+	color: #FAFAFA;
+}
+.qian{
+	width: 100%;
+	height: 100%;
+}
+.qian img{
+	width: 100%;
+	height: 100%;
+	
+}
+.icon_off{
+	position: absolute;
+	top: 0;
+	right: 0;
+}

@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <script src="js/mui.min.js"></script>
+    <link href="css/mui.min.css" rel="stylesheet"/>
+	<link href="css/index.css" rel="stylesheet" />
+    <script type="text/javascript" charset="utf-8">
+      	mui.init();
+		/*mui.plusReady(function () {
+			plus.webview.currentWebview().setStyle({
+				scrollIndicator: 'none'
+			});
+		});
+		document.addEventListener('touchstart',function(e){e.preventDefault();})*/
+		/*mui.post('http://result.eolinker.com/EWJnHWI67fb3762ea2891ed5bf4aacfe73008e21251958e?uri=index',{},function(data){
+			document.getElementById("img1").src='img/1.jpg'
+		},'json');*/
+		
+    </script>
+</head>
+<body style="background-color: white;">
+	<header class="mui-bar mui-bar-nav" id="back">
+		<h1 class="mui-title">古乐谭</h1>
+	</header>
+	<div class="mui-content" style="background-color: white;">
+		<div id="test">
+			
+		</div>
+	<div class="mui-slider" style="height: 50%;">
+		<div class="mui-slider-group mui-slider-loop">
+			<!--支持循环，需要重复图片节点-->
+			<div class="mui-slider-item mui-slider-item-duplicate"><img src="img/6.jpg" /></div>
+			<div class="mui-slider-item"><img src="img/1.jpg" id="img1"/></div>
+			<div class="mui-slider-item"><img src="img/2.jpg" /></div>
+			<div class="mui-slider-item"><img src="img/3.jpg" /></div>
+			<div class="mui-slider-item"><img src="img/4.jpg" /></div>
+			<div class="mui-slider-item"><img src="img/5.jpg" /></div>
+			<div class="mui-slider-item"><img src="img/6.jpg" /></div>
+			<!--支持循环，需要重复图片节点-->
+			<div class="mui-slider-item mui-slider-item-duplicate"><img src="img/1.jpg" /></div>
+		</div>
+		<div class="mui-slider-indicator mui-text-center">
+			<div class="mui-indicator mui-active"></div>
+			<div class="mui-indicator"></div>
+			<div class="mui-indicator"></div>
+			<div class="mui-indicator"></div>
+			<div class="mui-indicator"></div>
+			<div class="mui-indicator"></div>
+		</div>
+	</div>
+	<script>
+		var gallery = mui('.mui-slider');
+        gallery.slider({
+		interval:5000//自动轮播周期，若为0则不自动播放，默认为0；
+		});
+	</script>
+	<div class="mui-row" style="margin-top: 2px;">
+		<div class="mui-col-sm-3" >
+			<div class="lead_a">
+				<a href="chat.html"><img src="img/qa.png"/></a>
+			</div>
+			<div >
+				<p style="text-align: center; color: #000000;">小听问答</p>
+			</div>
+		</div>
+		<div class="mui-col-sm-3" >
+			<div class="lead_a">
+				<a href="qian.html"><img src="img/shi.png"/></a>
+			</div>
+			<div >
+				<p style="text-align: center; color: #000000;">诗情乐意</p>
+			</div>
+		</div>
+		<div class="mui-col-sm-3" >
+			<div class="lead_a">
+				<a href="music_lib.html"><img src="img/ge.png" /></a>
+			</div>
+			<div >
+				<p style="text-align: center; color: #000000;">藏乐阁</p>
+			</div>
+		</div>
+		<div class="mui-col-sm-3" >
+			<div class="lead_a">
+				<a href="recognition.html"><img src="img/shibie.png"/></a>
+			</div>
+			<div >
+				<p style="text-align: center; color: #000000;">听音识器</p>
+			</div>
+		</div>
+	</div>
+	
+	<div class="biaoti">
+		<p>每日推荐</p>
+	</div>
+	<div class="mui-row">
+		<div class="mui-col-sm-4">
+			<div class="tj_img">
+				<button class="m1 " onclick="playPause(1);" id="mc_play1">
+					<audio   id="ad1" >
+						<source src="http://47.100.192.102/f1.mp3" type="audio/mp3"></source>
+					</audio>
+					<img src="img/f1.PNG"/>
+				</button>
+				<p>埙</p>
+			</div>
+		</div>
+		<div class="mui-col-sm-4">
+			<div class="tj_img">
+				<button class="m1 " onclick="playPause(2);" id="mc_play2">
+					<audio   id="ad2" >
+						<source src="http://47.100.192.102/f2.mp3" type="audio/mp3"></source>
+					</audio>
+					<img src="img/f2.PNG"/>
+				</button>
+				<p>古琴</p>
+			</div>
+		</div>
+		<div class="mui-col-sm-4">
+			<div class="tj_img">
+				<button class="m1 " onclick="playPause(3);" id="mc_play3">
+					<audio   id="ad3" >
+						<source src="fonts/f3.mp3" type="audio/mp3"></source>
+					</audio>
+					<img src="img/f3.jpg"/>
+				</button>
+				<p>古筝</p>
+			</div>
+			
+		</div>
+	</div>
+	<div class="mui-row">
+		<div class="mui-col-sm-4">
+			<div class="tj_img">
+				<button class="m1 " onclick="playPause(4);" id="mc_play4">
+					<audio   id="ad4" >
+						<source src="http://47.100.192.102/f4.mp3" type="audio/mp3"></source>
+					</audio>
+					<img src="img/f4.jpg"/>
+				</button>
+				<p>琵琶</p>
+			</div>
+		</div>
+		<div class="mui-col-sm-4">
+			<div class="tj_img">
+				<button class="m1 " onclick="playPause(5);" id="mc_play5">
+					<audio  id="ad5" >
+						<source src="http://47.100.192.102/f5.mp3" type="audio/mp3"></source>
+					</audio>
+					<img src="img/f5.PNG"/>
+				</button>
+				<p>葫芦丝</p>
+			</div>
+		</div>
+		<div class="mui-col-sm-4">
+			<div class="tj_img">
+				<button class="m1 " onclick="playPause(6);" id="mc_play6">
+					<audio   id="ad6" >
+						<source src="fonts/f6.mp3" type="audio/mp3"></source>
+					</audio>
+					<img src="img/f6.PNG"/>
+				</button>
+				<p>扬琴</p>
+			</div>
+			
+		</div>
+	</div>
+	<script>
+		function playPause(str){
+			var str1="ad"+str;
+			var myAud = document.getElementById(str1);
+			var myad1 = document.getElementById("ad1");
+			var myad2 = document.getElementById("ad2");
+			var myad3 = document.getElementById("ad3");
+			var myad4 = document.getElementById("ad4");
+			var myad5 = document.getElementById("ad5");
+			var myad6 = document.getElementById("ad6");
+			if(myad1!=myAud){
+				myad1.pause();
+			}
+			if(myad2!=myAud){
+				myad2.pause();
+			}
+			if(myad3!=myAud){
+				myad3.pause();
+			}
+			if(myad4!=myAud){
+				myad4.pause();
+			}
+			if(myad5!=myAud){
+				myad5.pause();
+			}
+			if(myad6!=myAud){
+				myad6.pause();
+			}
+			if(myAud.paused){
+				myAud.play();
+			}else{
+				myAud.pause();
+			}
+		}
+	</script>
+	</div>
+
+</body>
+</html>

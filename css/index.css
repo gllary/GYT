@@ -1,0 +1,51 @@
+.lead_a {
+	width: 80%;
+	margin-left: 15%;	
+}
+.lead_a img{
+	width: 60px;
+	height: 60px;
+	margin-left: 15%;
+}
+.biaoti {
+	margin-top: 5px;
+	margin-left: 15px;
+	margin-bottom: 5px;
+}
+.biaoti p {
+	color: #000000;
+}
+.tj_img {
+	margin-left: 2px;
+}
+.tj_img img {
+	width: 95%;
+}
+.tj_img p {
+	text-align: center;
+}
+
+
+.lead{
+	display: inline-block;
+	margin-left: 2%;
+}
+.lead_item{
+	display: inline-block;
+	width: 20%;
+	margin-left: 2%;
+}
+.lead_img{
+	margin: 0 auto;
+}
+
+#back {
+	background-color: #d81e06;
+}
+#back h1 {
+	color: #FAFAFA;
+	font-size: 20px;
+	font-family: "agency fb";
+	
+}
+

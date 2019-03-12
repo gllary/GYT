@@ -1,0 +1,44 @@
+#back {
+	background-color: #FF0000;
+}
+#back h1 {
+	color: #FAFAFA;
+	
+}
+#back a {
+	color: #FAFAFA;
+}
+.send{
+	position: absolute;
+	bottom: 0;
+	width: 100%;
+}
+.bottom{
+	display: inline-block;
+	vertical-align: center;
+	position: absolute;
+	right: 2px;
+}
+#sendContent{
+	width: 83%;
+	display: inline-block;
+	vertical-align: center;
+}
+.center{
+			height: 400px;
+			background: #EFF0F2;
+			padding: 10px;
+			overflow: auto;
+			margin-top: 10px;
+		}
+		.center .left{
+			width: 100%;
+			font-size: 16px;
+			color:black;
+		}
+		.center .right{
+			width: 100%;
+			font-size: 16px;
+			color: black;
+			text-align: right;
+		}
