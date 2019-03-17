@@ -77,7 +77,7 @@
 				
 				plus.io.resolveLocalFileSystemURL(p, function(entry){
 					createItem(entry);
-					createUpload(entry);
+					//createUpload(entry);
 					
 				}, function(e){
 					outLine('读取录音文件错误：'+e.message);
@@ -110,50 +110,79 @@
 			w = null;
 			r = null;
 			t = 0;
-			mui.openWindow({
-				url: 'enjoy.html',
-				//id: 'name',
-				extras:{//扩展参数
-				name:'1' //k-v
-				}
-			})
+			mui.alert("请前往Android/data/io.dcloud.H52FEA054/apps/GYT/doc/audio目录下选择录音上传！");
+
 		}
 		//上传音频
 		function createUpload(file){
-		/*	mui.post('157.230.161.31:8080/renren-fast/sys/oss/upload ',{file:file},function(data){
-				alert(1);
-			},'json');*/
-		/*var task=plus.uploader.createUpload("157.230.161.31:8080/renren-fast/sys/oss/upload",{method:"post"},function(t,status){
-				//上传完成
-				if(status == 200){
-					alert("success:"+t.url);
-				}else{
-					alert("fail"+status);
-				}
-			});
-			
 			alert(file);
-			task.addFile(file,{key:file});
-			task.start();*/
-			alert(file);
-			var params=new FormData();
-			params.append('file',file);
-			params.append('filename',filename);
+			var formData=new FormData();
+			formData.enctype="multpart/form-data";
+			formData.append('file',file);
+			formData.append('filename',file.name);
 			
 			$.ajax({
-				type:'post',
-				url:'157.230.161.31:8080/renren-fast/sys/oss/upload',
-				data:params,
-				cache:false,
+				url:'http://157.230.161.31:8080/renren-fast/sys/oss/upload',
+				type:'POST',
+				dataType:'json',
+				data:formData,
 				contentType:false,
 				processData:false,
-				seccess:function(data){
-					alert("111")
+				success:function(data){
+					alert("hhh");
+					//console.log(data)
+				},
+				error:function(err){
+					console.log(err)
+				},
+				complete:function(){
+					console.log('complete')
 				}
 			})
 			
 	
 		}
+		//按钮上传
+		function show(){
+			mui.toast("正在识别请稍后~");
+			var file=$('#file')[0];
+			console.log(file.files[0]);
+			var formData=new FormData();
+			formData.append('filename','test');
+			formData.append('file',file.files[0]);
+			$.ajax({
+				url:'http://157.230.161.31:8080/renren-fast/sys/oss/upload',
+				type:'POST',
+				dataType:'json',
+				data:formData,
+				contentType:false,
+				processData:false,
+				success:function(data){
+					var id=data.url;
+					if(id!=-2){
+						mui.openWindow({
+							url: 'enjoy.html',
+							//id: 'name',
+							extras:{//扩展参数
+							name:id //k-v
+							}
+						})
+					}else{
+						alert("识别失败~ 试试上传本地.wav格式的音乐吧！")
+					}
+
+					alert(data.url);
+					//console.log(data)
+				},
+				error:function(err){
+					console.log(err)
+				},
+				complete:function(){
+					console.log('complete')
+				}
+			})
+		}
+	
 		// 清除历史记录
 		function cleanHistory(){
 			hl.innerHTML = '<li id="empty" class="ditem-empty">无历史记录</li>';
@@ -262,18 +291,8 @@
 			pt.innerText = '00:00:00/00:00:00';	
 		}
 		// 重写关闭
-		var _back=window.back;
-		function resetback(){
-			// 停止播放
-			if(ep.style.display == 'block'){
-				stopPlay();
-			}else if(er.style.display == 'block'){
-				stopRecord();
-			}else{
-				_back();
-			}
-		}
-		window.back=resetback;
+
+		
 				</script>
 				<link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8"/>
 		
@@ -284,8 +303,13 @@
 			<h1 class="mui-title">听音识器</h1>
 		</header>
 			<div id="dcontent" class="dcontent">
+				
+				
+				
 					<br/>
 					<div class="button" onclick="startRecord()">开始录音</div>
+					<input  type="file" id="file" onchange="show()" style="border: none;"/>
+					
 					
 					<br/>
 					<!-- History list -->
@@ -321,5 +345,5 @@
 					
 				</div>
 	</body>
-	<script type="text/javascript" src="js/immersed.js" ></script>
+	<!--<script type="text/javascript" src="js/immersed.js" ></script>-->
 </html>

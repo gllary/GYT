@@ -36,15 +36,10 @@
 			<div id="jueju">
 				<img src="img/jueju.png" />
 				<div class="oDiv1" id="oDiv1">
-					<h4>谁家玉笛暗飞声,散入春风满洛城。</h4>
-					<h4>此夜曲中闻折柳,何人不起故园情。</h4>
+		
 				</div>
 			</div>
-			<script>
-				function huan(){
-					document.getElementById("jueju").innerHTML='<img src="img/jueju.png" /><div class="oDiv1" id="oDiv1"><h4>谁家玉笛暗飞声,散入春风满洛城。</h4></div>'
-				}
-			</script>
+
 			<div class="another">
 				<a onclick="to_play()"><img src="img/tan.png"/></a>
 			</div>
@@ -63,6 +58,7 @@
 			function plusReady(){
 				var wv=plus.webview.currentWebview();
 				id=wv.name;
+			
 				document.getElementById("etop").src='img/e'+id+'.jpg';
 				var url='http://157.230.161.31:8080/renren-fast/generator/instrudb/info/'+wv.name;
 				mui.get(url,function(data){
@@ -71,7 +67,7 @@
 				document.getElementById("mask").innerHTML='<h3>'+data.instrudb.name+'</h3>'+'<p>&nbsp;&nbsp;&nbsp;'+data.instrudb.desc+'</p>';
 					
 				},'json');
-				
+				huan();
 				v_play(id);
 				
 			}
@@ -81,6 +77,7 @@
 			}else{
 				document.addEventListener('plusready', plusReady, false);
 			}
+			//变换视频
 			function v_play(str){
 				document.getElementById("vd1").poster='img/ep'+str+'.jpg';
 				document.getElementById("vd1").pause();
@@ -88,6 +85,16 @@
 				document.getElementById("vd1").src=url;
 				document.getElementById("vd1").play();
 			}
+			//变换古诗
+			function huan(){
+					
+				var p_url='http://157.230.161.31:8080/renren-fast/generator/playdb/info/'+id;
+				mui.get(p_url,function(data){
+					document.getElementById("jueju").innerHTML='<img src="img/jueju.png" /><div class="oDiv1" id="oDiv1"><h4>'+data.poem+'</h4></div>'	
+				},'json')
+				
+			}
+			//跳转到弹奏页面
 			function to_play(){
 				mui.openWindow({
 					url: 'play.html',

@@ -1,4 +1,4 @@
-﻿(function(w){
+(function(w){
 // 空函数
 function shield(){
 	return false;
@@ -11,7 +11,7 @@ function plusReady(){
 	ws=plus.webview.currentWebview();
 	// Android处理返回键
 	plus.key.addEventListener('backbutton',function(){
-		back();
+		//back();
 	},false);
 	compatibleAdjust();
 }

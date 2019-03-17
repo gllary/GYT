@@ -23,12 +23,17 @@
 			</div>
 			<!--center end-->
 			<!--send start-->
-			<div class="send">
-				<input type="text" id="sendContent" placeholder="快来和小听聊聊吧~">
+			<div class="send" style="margin-left: 2px;">
+				<div class="mui-input-row " style="width: 84%; display: inline-block; vertical-align: middle;">
+					<input id="sendContent"  type="search" class="mui-input-clear mui-input-speech" placeholder="请输入~"  style="background-color: white;">
+					
+				</div>
+				
 				<div class="bottom">
 					<button id="button">发送</button>
 				</div>
 			</div>
+
 		</div>
 		
 		<script type="text/javascript" src="js/jquery-1.10.2.min.js">
@@ -51,7 +56,7 @@
 		
 					$.ajax({
 						type:"post",
-						url:"http://www.tuling123.com/openapi/api?key=47cccfeb57cf41139ab0d1fad107f44a&info="+content,
+						url:"http://www.tuling123.com/openapi/api?key=d93d7645d9224b018feadff7269aa38f&info="+content,
 						success:function(result){
 							var obj = result;
 							var tmp = "<span>"+obj.text+"</span>"

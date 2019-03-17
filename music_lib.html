@@ -17,6 +17,19 @@
 			<h1 class="mui-title">藏乐阁</h1>
 		</header>
 		<div class="mui-content">
+			<div style="margin-top: 5px;">
+				<div class="mui-input-row mui-search" style="width: 84%; display: inline-block; vertical-align: middle;margin-left: 2px;">
+					<input id="search"  type="search" class="mui-input-clear mui-input-speech" placeholder="输入乐器名搜索" style="background-color: white;">
+					
+				</div>
+				<div id="search_but" style="display: inline-block; width: 14%; vertical-align: top;margin-right: 0; ">
+					<button class="mui-button-row" onclick="to_search()">搜索</button>
+					
+				</div>				
+			</div>
+
+				
+			
 			 <ul class="mui-table-view" >
 					<li class="mui-table-view-cell mui-media">
 						<a onclick="to_enjoy('1')">
@@ -148,6 +161,50 @@
 				</ul>
 		</div>
 		<script>
+			mui.plusReady(function(){
+				var search = document.getElementById("search");
+				search.addEventListener("keypress",function(e){
+					
+					var ad = search.value;
+					if(ad.search("古筝")!=-1){
+						to_enjoy('1')
+					}
+					else if(ad.search("笛子")!=-1){
+						to_enjoy('2')
+						
+					}
+					else if(ad.search("琵琶")!=-1){
+						to_enjoy('5')
+					}
+					else if(ad.search("二胡")!=-1){
+						to_enjoy('7')
+					}
+					else if(ad.search("葫芦丝")!=-1){
+						to_enjoy('9')
+				    }
+				})
+			});
+			//搜索
+			function to_search(){
+				var search = document.getElementById("search");
+				var ad = search.value;
+				if(ad.search("古筝")!=-1){
+					to_enjoy('1')
+				};
+				if(ad.search("笛子")!=-1){
+					to_enjoy('2')
+					
+				};
+				if(ad.search("琵琶")!=-1){
+					to_enjoy('5')
+				};
+				if(ad.search("二胡")!=-1){
+					to_enjoy('7')
+				};
+				if(ad.search("葫芦丝")!=-1){
+					to_enjoy('9')
+				};
+			}
 			function to_enjoy(str){
 				mui.openWindow({
 					url: 'enjoy.html',

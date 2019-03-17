@@ -1,0 +1,70 @@
+
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title></title>
+		<script src="js/mui.min.js"></script>
+		<link href="css/mui.min.css" rel="stylesheet"/>
+		<script type="text/javascript" charset="utf-8">
+			mui.init();	
+		</script>
+		<style type="text/css">
+		#top img{
+				animation:go 4s linear infinite;
+				display:block;
+				margin:130px auto;
+			}
+			@keyframes go{
+				from{
+					transform:rotate(0deg);
+				}
+				to{
+					transform:rotate(360deg);
+				}
+			}
+
+		    #top img:hover{
+				animation-play-state:paused;
+			}
+			#top img{
+				border-radius:180px
+			}
+			#music{
+				width: 80%;
+				margin-left: 10%;
+			}
+			body{
+				background: url(fonts/q7.gif) no-repeat;
+			}
+		</style>
+	</head>
+
+	<body >
+		<div id="top">
+			<img src="img/f6.png" width="180px;" id="t_p"/>	
+		</div>
+		<div id="music">
+			<audio  controls="controls">
+				<source src="fonts/f6.mp3"></source>
+			</audio>
+		</div>
+	</body>
+	<script>
+		var id;
+		function plusReady(){
+		var wv=plus.webview.currentWebview();
+		id=wv.name;
+		var url='http://47.100.192.102/f'+id+'.mp3';
+		document.getElementById("t_p").src='img/f'+id+'.png';
+		document.getElementById("music").innerHTML='<audio  controls="controls"><source src="'+url+'"></source></audio>'
+		}
+	    if(window.plus){
+			plusReady();
+		}else{
+			document.addEventListener('plusready', plusReady, false);
+		}
+	</script>
+</html>
