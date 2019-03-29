@@ -71,7 +71,8 @@
 				outLine('录音对象未获取');
 				return;
 			}
-			r.record({filename:'_doc/audio/',format:"wav"}, function(p){
+			r.supportedSamplerates="48000";
+			r.record({filename:'_doc/audio/'}, function(p){
 				outLine('录音完成：'+p);
 				
 				
@@ -89,7 +90,7 @@
 			t = 0;
 			ri = setInterval(function(){
 				t++;
-				if(t<=5)
+				if(t<=10)
 				{
 					rt.innerText = timeToStr(t);
 					
@@ -144,6 +145,8 @@
 		}
 		//按钮上传
 		function show(){
+			var nwaiting = plus.nativeUI.showWaiting();
+
 			mui.toast("正在识别请稍后~");
 			var file=$('#file')[0];
 			console.log(file.files[0]);
@@ -179,6 +182,10 @@
 				},
 				complete:function(){
 					console.log('complete')
+					//刷新页面
+					location.reload();
+					//刷新页面之后关闭等待框
+					nwaiting.close();
 				}
 			})
 		}
@@ -308,7 +315,7 @@
 				
 					<br/>
 					<div class="button" onclick="startRecord()">开始录音</div>
-					<input  type="file" id="file" onchange="show()" style="border: none;"/>
+					<input  type="file" id="file" onchange="show()" />
 					
 					
 					<br/>
