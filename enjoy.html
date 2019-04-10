@@ -44,7 +44,7 @@
 				<a onclick="to_play()"><img src="img/tan.png"/></a>
 			</div>
 
-			<div class="vid" style="margin-left: 3px;">
+			<div class="vid" style="margin-left: 3px;margin-right: 3px;">
 				<div class="vd" >
 					<video controls="controls" width="100%" height="300" preload="auto"  id="vd1">
 						<source src="fonts/test.mp4" type="audio/mp4" ></source>
@@ -90,7 +90,7 @@
 					
 				var p_url='http://157.230.161.31:8080/renren-fast/generator/playdb/info/'+id;
 				mui.get(p_url,function(data){
-					document.getElementById("jueju").innerHTML='<img src="img/jueju.png" /><div class="oDiv1" id="oDiv1"><h4>'+data.poem+'</h4></div>'	
+					document.getElementById("jueju").innerHTML='<img src="img/shi.jpg" /><div class="oDiv1" id="oDiv1"><h4>'+data.poem+'</h4></div>'	
 				},'json')
 				
 			}

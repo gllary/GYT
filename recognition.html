@@ -1,154 +1,60 @@
-<!DOCTYPE html>
+<!doctype html>
 <html>
+
 	<head>
 		<meta charset="utf-8">
-		<title>识别</title>
+		<title></title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-		<script src="js/mui.min.js"></script>
-		<link href="css/mui.min.css" rel="stylesheet"/>
-		<script type="text/javascript" src="js/common.js"></script>
-		<script type="text/javascript" src="js/jquery-2.1.4.js"></script>
-		<script type="text/javascript" charset="utf-8">
-			mui.init();
-		</script>	
+		<link href="css/mui.css" rel="stylesheet" />
 		<link href="css/recognition.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<script src="js/mui.js"></script>
+		
 		<script type="text/javascript">
-		var gentry=null,hl=null,le=null;
-		var er=null,ep=null;
-		var bUpdated=false; //用于兼容可能提前注入导致DOM未解析完更新的问题
-		// H5 plus事件处理
-		function plusReady(){
-			// 获取音频目录对象
-			plus.io.resolveLocalFileSystemURL('_doc/', function(entry){
-				entry.getDirectory('audio', {create:true}, function(dir){
-					gentry = dir;
-					updateHistory();
-				}, function(e){
-					outSet('Get directory "audio" failed: '+e.message);
-				});
-			}, function(e){
-				outSet('Resolve "_doc/" failed: '+e.message);
-			} );
-		}
-		if(window.plus){
-			plusReady();
-		}else{
-			document.addEventListener('plusready', plusReady, false);
-		}
-		// DOMContentLoaded事件处理
-		document.addEventListener('DOMContentLoaded', function(){
-			// 获取DOM元素对象
-			hl = document.getElementById('history');
-			le = document.getElementById('empty');
-			er = document.getElementById('record');
-			rt = document.getElementById('rtime');
-			ep = document.getElementById('play');
-			pt = document.getElementById('ptime');
-			pp = document.getElementById('progress')
-			ps = document.getElementById('schedule');
-			updateHistory();
-		},false);
-		// 添加播放项
-		function createItem( entry ) {
-			var li = document.createElement('li');
-			li.className = 'ditem';
-			li.innerHTML = '<span class="iplay"><font class="aname"></font><br/><font class="ainf"></font></span>';
-			li.setAttribute('onclick', 'playAudio(this)');
-			hl.insertBefore(li, le.nextSibling);
-			li.querySelector('.aname').innerText = entry.name;
-			li.querySelector('.ainf').innerText = '...';
-			li.entry = entry;
-			updateInformation(li);
-			// 设置空项不可见
-			le.style.display = 'none';
-		}
-		// 开始录音
-		var r=null,t=0,ri=null,rt=null;
-		function startRecord(){
-			outSet('开始录音：');
-			r = plus.audio.getRecorder();
-			if ( r == null ) {
-				outLine('录音对象未获取');
-				return;
-			}
-			r.supportedSamplerates="48000";
-			r.record({filename:'_doc/audio/'}, function(p){
-				outLine('录音完成：'+p);
-				
-				
-				plus.io.resolveLocalFileSystemURL(p, function(entry){
-					createItem(entry);
-					//createUpload(entry);
-					
-				}, function(e){
-					outLine('读取录音文件错误：'+e.message);
-				});
-			}, function(e){
-				outLine('录音失败：'+e.message);
-			} );
-			er.style.display = 'block';
-			t = 0;
-			ri = setInterval(function(){
-				t++;
-				if(t<=10)
-				{
-					rt.innerText = timeToStr(t);
-					
-				}else{
-					t--;
-					stopRecord();
-					
-				}
-			}, 1000);
-		}
-		// 停止录音
-		function stopRecord(){
-			er.style.display = 'none';
-			rt.innerText = '00:00:00';
-			clearInterval(ri);
-			ri = null;
-			r.stop();
-			w = null;
-			r = null;
-			t = 0;
-			mui.alert("请前往Android/data/io.dcloud.H52FEA054/apps/GYT/doc/audio目录下选择录音上传！");
+			mui.init()
+			
+			
+		</script>
+		<header class="mui-bar mui-bar-nav" id="back">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">听音识器</h1>
+		</header>
+		<div class="mui-content" style="background-color: white;">
+			<br/>
 
-		}
-		//上传音频
-		function createUpload(file){
-			alert(file);
-			var formData=new FormData();
-			formData.enctype="multpart/form-data";
-			formData.append('file',file);
-			formData.append('filename',file.name);
-			
-			$.ajax({
-				url:'http://157.230.161.31:8080/renren-fast/sys/oss/upload',
-				type:'POST',
-				dataType:'json',
-				data:formData,
-				contentType:false,
-				processData:false,
-				success:function(data){
-					alert("hhh");
-					//console.log(data)
-				},
-				error:function(err){
-					console.log(err)
-				},
-				complete:function(){
-					console.log('complete')
-				}
-			})
-			
+
+<a href="javascript:;" class="file">选择文件
+    <input type="file"  id="file" onchange="show()" >
 	
-		}
-		//按钮上传
-		function show(){
-			var nwaiting = plus.nativeUI.showWaiting();
+</a>
 
-			mui.toast("正在识别请稍后~");
-			var file=$('#file')[0];
+
+			
+			<br/>
+			<div id="action" style="display: none;">
+									<div class="ic">
+										<div class="circle">
+											<div class="c1"></div>
+											<div class="c2"></div>
+											<div class="c3"></div>
+										</div>
+				
+									</div>
+									<div id="timetext">
+										正在识别~
+									</div>
+			</div>
+			
+		</div>
+	</body>
+
+	<script src="js/jquery-3.3.1.min.js"></script>
+	<script>
+		var file=$('#file')[0];
+		function show(){
+			document.getElementById("action").style.display="";
 			console.log(file.files[0]);
 			var formData=new FormData();
 			formData.append('filename','test');
@@ -161,6 +67,7 @@
 				contentType:false,
 				processData:false,
 				success:function(data){
+					
 					var id=data.url;
 					if(id!=-2){
 						mui.openWindow({
@@ -171,186 +78,18 @@
 							}
 						})
 					}else{
-						alert("识别失败~ 试试上传本地.wav格式的音乐吧！")
+						alert("识别失败~试试其他音乐吧！ ")
 					}
-
-					alert(data.url);
-					//console.log(data)
+					
 				},
 				error:function(err){
 					console.log(err)
 				},
 				complete:function(){
 					console.log('complete')
-					//刷新页面
-					location.reload();
-					//刷新页面之后关闭等待框
-					nwaiting.close();
 				}
 			})
 		}
-	
-		// 清除历史记录
-		function cleanHistory(){
-			hl.innerHTML = '<li id="empty" class="ditem-empty">无历史记录</li>';
-			le = document.getElementById('empty');
-			// 删除音频文件
-			outSet('清空录音历史记录：');
-			gentry.removeRecursively(function(){
-				// Success
-				outLine('操作成功！');
-			}, function(e){
-				ouline('操作失败：'+e.message);
-			});
-		}
-		// 获取录音历史列表
-		function updateHistory(){
-			if(bUpdated||!gentry||!document.body){//兼容可能提前注入导致DOM未解析完更新的问题
-				return;
-			}
-		  	var reader = gentry.createReader();
-		  	reader.readEntries(function(entries){
-		  		for(var i in entries){
-		  			if(entries[i].isFile){
-		  				createItem(entries[i]);
-		  			}
-		  		}
-		  	}, function(e){
-		  		outLine('读取录音列表失败：'+e.message);
-		  	});
-			bUpdated = true;
-		}
-		// 获取录音文件信息
-		function updateInformation(li){
-			if(!li || !li.entry){
-				return;
-			}
-			var entry = li.entry;
-			entry.getMetadata(function(metadata){
-				li.querySelector('.ainf').innerText = dateToStr(metadata.modificationTime);
-			}, function(e){
-				outLine('获取文件"'+entry.name+'"信息失败：'+e.message);
-			} );
-		}
-		// 播放音频文件
-		function playAudio(li){
-			if(!li || !li.entry){
-				ouSet('无效的音频文件');
-				return;
-			}
-			outSet('播放音频文件：'+li.entry.name);
-			startPlay('_doc/audio/'+li.entry.name);
-		}
-		// 播放文件相关对象
-		var p=null,pt=null,pp=null,ps=null,pi=null;
-		// 开始播放
-		function startPlay(url){
-			ep.style.display = 'block';
-			var L = pp.clientWidth;
-			p = plus.audio.createPlayer(url);
-			p.play(function(){
-				outLine('播放完成！');
-				// 播放完成
-				pt.innerText = timeToStr(d)+'/'+timeToStr(d);
-				ps.style.webkitTransition = 'all 0.3s linear';
-				ps.style.width = L+'px';
-				stopPlay();
-			}, function(e){
-				outLine('播放音频文件"'+url+'"失败：'+e.message);
-			});
-			// 获取总时长
-			var d = p.getDuration();
-			if(!d){
-				pt.innerText = '00:00:00/'+timeToStr(d);
-			}
-			pi = setInterval(function(){
-				if(!d){ // 兼容无法及时获取总时长的情况
-					d = p.getDuration();
-				}
-				var c = p.getPosition();
-				if(!c){  // 兼容无法及时获取当前播放位置的情况
-					return;
-				}
-				pt.innerText = timeToStr(c)+'/'+timeToStr(d);
-				var pct = Math.round(L*c/d);
-				if(pct < 8){
-					pct = 8;
-				}
-				ps.style.width = pct+'px';
-			}, 1000);
-		}
-		// 停止播放
-		function stopPlay(){
-			clearInterval(pi);
-			pi=null;
-			setTimeout(resetPlay, 500);
-			// 操作播放对象
-			if(p){
-				p.stop();
-				p=null;
-			}
-		}
-		// 重置播放页面内容
-		function resetPlay(){
-			ep.style.display = 'none';
-			ps.style.width = '8px';
-			ps.style.webkitTransition = 'all 1s linear';
-			pt.innerText = '00:00:00/00:00:00';	
-		}
-		// 重写关闭
+	</script>
 
-		
-				</script>
-				<link rel="stylesheet" href="css/common.css" type="text/css" charset="utf-8"/>
-		
-	</head>
-	<body>
-		<header class="mui-bar mui-bar-nav" id="back">
-			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
-			<h1 class="mui-title">听音识器</h1>
-		</header>
-			<div id="dcontent" class="dcontent">
-				
-				
-				
-					<br/>
-					<div class="button" onclick="startRecord()">开始录音</div>
-					<input  type="file" id="file" onchange="show()" />
-					
-					
-					<br/>
-					<!-- History list -->
-					<ul id="history" class="dlist" style="text-align:left;">
-						<li id="empty" class="ditem-empty">无历史记录</li>
-					</ul>
-					<br/>
-					<div class="button button-waring" onclick="cleanHistory()">清空历史记录</div>
-					<br/>
-				</div>
-				<div id="output" style="display: none;">
-	
-				</div>
-				<div id="play" class="rp">
-					<div id="ptime" class="ptime">00:00:00/00:00:00</div><br/>
-					<div id="progress" class="progress"><div id="schedule" class="schedule"></div></div>
-					<br/>
-					<div class="stop" onclick="stopPlay(),outSet('停止播放！')"></div>
-				</div>
-				<div id="record" class="rp">
-					<div style="width:100%;height:20%;"></div>
-					<!--<div class="rprogress"><div class="rschedule"></div></div>-->
-					<div class="circle">
-						<div class="c1"></div>
-						<div class="c2"></div>
-						<div class="c3"></div>
-					</div>
-					<div class="ic">
-						<a onclick=""><img src="img/t.png" /></a>
-					</div>
-					<br/>
-					<div id="rtime" class="rtime">00:00:00</div><br/>
-					
-				</div>
-	</body>
-	<!--<script type="text/javascript" src="js/immersed.js" ></script>-->
 </html>
