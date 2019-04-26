@@ -17,6 +17,10 @@
 			<div class="icon_off" onclick="off()" id="on_off">
 				<img src="img/on.png" />
 			</div>
+			<div class="cangtoushi" style="position: fixed ;top: 30px;left: 20%;background: rgba(0,0,0,0.4);">
+				<div id="first" style="display: inline-block;width: 30px;height: 20px; color: white;margin-left:3px;"></div>
+				
+			</div>
 			<div class="qian" id="qian"></div>
 			<div id="music"></div>
 			<script>
@@ -25,6 +29,10 @@
 					var str='fonts/q'+num+'.gif';
 					document.getElementById("qian").innerHTML='<img src="'+str+'" />';
 					document.getElementById("music").innerHTML='<audio autoplay="autoplay" id="bgm" loop><source type="audio/mp3" src="fonts/'+num+'.wav"></source></audio>';
+					var p_url='http://157.230.161.31:8080/renren-fast/generator/playdb/info/'+num;
+					mui.get(p_url,function(data){
+						document.getElementById("first").innerHTML='<h4>'+data.poem+'</h4>'	
+					},'json')
 				}
 				function off(){
 					var str=document.getElementById("bgm");
